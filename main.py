@@ -13,14 +13,20 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('.dsr'):
-        await client.send_message(message.channel, milestone_request())
+    if message.content.startswith('.milestone'):
+        await client.send_message(message.channel, daily_milestone())
+
+    elif message.content.startswith('.clan'):
+        await client.send_message(message.channel, clan_milestones())
 
     elif message.content.startswith('.stats'):
         await client.send_message(message.channel, stats_request(message.content[7:]))
 
+def daily_milestone():
+    r = requests.get(api_root + '/Destiny2/Milestones/', headers = api_key)
+    return(str(r.json()))
 
-def milestone_request():
+def clan_milestones():
     r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
     return(r['Response']['endDate'])
 
