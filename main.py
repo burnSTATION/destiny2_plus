@@ -22,7 +22,7 @@ async def on_message(message):
 
 def milestone_request():
     r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
-    return(r['endDate'])
+    return(r['Response']['endDate'])
 
 def stats_request(user):
     r = requests.get(api_root + '/Destiny2/SearchDestinyPlayer/-1/' + user + '/', headers = api_key).json()
