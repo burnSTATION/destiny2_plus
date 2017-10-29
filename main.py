@@ -12,6 +12,6 @@ async def on_ready():
 @client.event
 async def on_message(message):
   if message.content.startswith('!milestones'):
-      await clinet.send_message(message.channel, 'Oops! this function is not available yet!')
+      await client.send_message(message.channel, 'Oops! this function is not available yet!')
 
-client.run('Yj7YO5jxg4fL0UwkSqN-HWznojJZ_fas')
+client.run('MzczOTg0ODcxMjQ2MzMxOTA2.DNauaA.7949_eWFqXqx1Dfsaj0TzbaO7WI')
