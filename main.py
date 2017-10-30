@@ -19,8 +19,11 @@ async def on_message(message):
     elif message.content.startswith('.stats'):
         await client.send_message(message.channel, stats_request(message.content[7:]))
 
+def daily_milestone():
+    r = requests.get(api_root + '/Destiny2/Milestones/', headers = api_key)
+    return(str(r.json()))
 
-def milestone_request():
+def clan_milestones():
     r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
     start_date = r['Response']['startDate']
     end_date = r['Response']['endDate']
