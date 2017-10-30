@@ -10,7 +10,7 @@ import requests
 # should put the "openapi-2.json" file in the same folder and then
 # use that filename as the first cmdline argument to load the data
 # from the api doc
-if len(sys.argv) > 1 :
+if (len(sys.argv) > 1):
     with open(sys.argv[1]) as api:
         bungie = json.load(api)
 
