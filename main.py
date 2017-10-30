@@ -17,7 +17,7 @@ async def on_message(message):
         await client.send_message(message.channel, milestone_request())
 
     elif message.content.startswith('.stats'):
-        await client.send_message(message.channel, stats_request(message.content[7:]))
+        await client.send_message(message.channel, embed=stats_request(message.content[7:]))
 
 
 def milestone_request():
@@ -29,15 +29,24 @@ def milestone_request():
 
 def stats_request(user):
     if user == 'synapse':
+        name = 'SYNAPSE#11498'
         char = 'Titan'
+        emblem = '<:titan:374636049910988801>'
+        network = '<:bnet:374636065509736458>'
         accountType = '4'
         destinyId = '4611686018467291248'
     elif user == 'musclehamstr':
+        name = 'MuscleHamstr#11639'
         char = 'Hunter'
+        emblem = '<:hunter:374574917594644480>'
+        network = '<:bnet:374636065509736458>'
         accountType = '4'
         destinyId = '4611686018467293944'
     elif user == 'burnstation':
+        name = 'burnSTATION#1999'
         char = 'Warlock'
+        emblem = '<:warlock:374575358327914498>'
+        network = '<:bnet:374636065509736458>'
         accountType = '4'
         destinyId = '4611686018470929530'
 
@@ -48,7 +57,9 @@ def stats_request(user):
     highestLightLevel = r['Response']['characters'][0]['results']['allPvP']['allTime']['highestLightLevel']['basic']['displayValue']
     combatRating = r['Response']['characters'][0]['results']['allPvP']['allTime']['combatRating']['basic']['displayValue']
 
-    stats = char + ' Level ' + highestCharacterLevel + '. Max light level ' +  highestLightLevel + ' with a combat rating of ' + combatRating + '.'
-    return (stats)
+    embed=discord.Embed(title = str(network) + name, description = emblem + char + " Level " + highestCharacterLevel + ' |' + '<:light:374575358596612106>' + str(highestLightLevel))
+    return (embed)
+
+
 
 client.run('MzczOTg0ODcxMjQ2MzMxOTA2.DNauaA.7949_eWFqXqx1Dfsaj0TzbaO7WI')
