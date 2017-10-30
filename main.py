@@ -42,11 +42,11 @@ async def on_message(message):
     elif message.content.startswith('.clan'):
         await client.send_message(message.channel, clan_milestones())
 
-    if cmd.strip == '.dsr':
-        await client.send_message(message.channel, milestone_request())
     elif message.content.startswith('.stats'):
         await client.send_message(message.channel, stats_request(message.content[7:]))
+
     elif cmd.strip == '.d2p':
+        raise "not implemented yet"
         path_names, values = args.strip.split('--', 2)
         path = os.path.join('/', *path)
 
@@ -64,6 +64,17 @@ async def on_message(message):
         elif top == 'trending':
             url = trending()
 
+def daily_milestone():
+    r = requests.get(api_root + '/Destiny2/Milestones/', headers = api_key)
+    return(str(r.json()))
+
+def clan_milestones():
+    r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
+    return(r['Response']['endDate'])
+
+def stats_request(user):
+    r = requests.get(api_root + '/Destiny2/SearchDestinyPlayer/-1/' + user + '/', headers = api_key).json()
+    return (r)
 
 # user, forum, groupv2, destiny2, community and trending will
 # all come w/ a way of searching the endpoints found in openapi-2.json
@@ -116,17 +127,5 @@ def path_search(prefix, substr, paths, length = 1):
         matching[0]
     else
         path_search(prefix, substr, matching, length + 1)
-
-def daily_milestone():
-    r = requests.get(api_root + '/Destiny2/Milestones/', headers = api_key)
-    return(str(r.json()))
-
-def clan_milestones():
-    r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
-    return(r['Response']['endDate'])
-
-def stats_request(user):
-    r = requests.get(api_root + '/Destiny2/SearchDestinyPlayer/-1/' + user + '/', headers = api_key).json()
-    return (r)
 
 client.run('MzczOTg0ODcxMjQ2MzMxOTA2.DNauaA.7949_eWFqXqx1Dfsaj0TzbaO7WI')
