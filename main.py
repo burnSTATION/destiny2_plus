@@ -10,8 +10,9 @@ import requests
 # should put the "openapi-2.json" file in the same folder and then
 # use that filename as the first cmdline argument to load the data
 # from the api doc
-with open(sys.argv[1]) as api:
-    bungie = json.load(api)
+if len(sys.argv) > 1 :
+    with open(sys.argv[1]) as api:
+        bungie = json.load(api)
 
 client = discord.Client()
 api_key = {'X-API-Key':'a46292e41c284dfbb9065b5864ec7ff0'}
@@ -82,31 +83,32 @@ def stats_request(user):
 # from the user narrows it down really quickly so every request doesn't
 # take forever. it's a hack, but it will work and not be slow AF :)
 def user(substr, **kw):
-    path = path_search('user', )
-    pass
+    raise("not implemented")
+    path = path_search('user', substr, bungie['paths'].keys).format(**kw)
 
 def forum(substr, **kw):
+    raise("not implemented")
     path = path_search('forum', substr, bungie['paths'].keys).format(**kw)
-    pass
 
 def groupv2(substr, **kw):
+    raise("not implemented")
     path = path_search('groupv2', substr, bungie['paths'].keys).format(**kw)
-    pass
 
 def destiny2(substr, **kw):
+    raise("not implemented")
     path = path_search('destiny2', substr, bungie['paths'].keys).format(**kw)
-    pass
 
 def community(substr, **kw):
+    raise("not implemented")
     path = path_search('community', substr, bungie['paths'].keys).format(**kw)
-    pass
 
 def trending(substr, **kw):
+    raise("not implemented")
     path = path_search('trending', substr, bungie['paths'].keys).format(**kw)
-    pass
 
 
 def fetch(ep, **kw):
+    raise("not implemented")
     endpoint[ep](**kw)
 
 # this is absolutely the wrong way to do this but it only takes a few lines to implement
@@ -116,12 +118,12 @@ def fetch(ep, **kw):
 # e.g. `.d2p user netuser id=1234` will use `/User/GetBungieNetUserById/1234/` as its url
 def path_search(prefix, substr, paths, length = 1):
     if len(substr) < length
-        raise "no matching path found"
+        raise("no matching path found")
 
     matching = [s for s in paths if prefix in s.lower() and substr[0:length] in s.lower()]
 
     if matching == paths
-        raise "found '{these}', but can't decide between them. try something more specific".format(these=matching.join(", "))
+        raise("found '{these}', but can't decide between them. try something more specific".format(these=matching.join(", ")))
 
     if len(matching) == 1
         matching[0]
