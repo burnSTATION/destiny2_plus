@@ -36,6 +36,12 @@ async def on_message(message):
 
     cmd, top, args = message.content.split(' ', 3)
 
+    if message.content.startswith('.milestone'):
+        await client.send_message(message.channel, daily_milestone())
+
+    elif message.content.startswith('.clan'):
+        await client.send_message(message.channel, clan_milestones())
+
     if cmd.strip == '.dsr':
         await client.send_message(message.channel, milestone_request())
     elif message.content.startswith('.stats'):
@@ -111,7 +117,11 @@ def path_search(prefix, substr, paths, length = 1):
     else
         path_search(prefix, substr, matching, length + 1)
 
-def milestone_request():
+def daily_milestone():
+    r = requests.get(api_root + '/Destiny2/Milestones/', headers = api_key)
+    return(str(r.json()))
+
+def clan_milestones():
     r = requests.get(api_root + '/Destiny2/Clan/2809604/WeeklyRewardState/', headers = api_key).json()
     return(r['Response']['endDate'])
 
